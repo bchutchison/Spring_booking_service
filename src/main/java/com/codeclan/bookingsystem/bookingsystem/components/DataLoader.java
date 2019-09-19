@@ -41,6 +41,12 @@ public class DataLoader implements ApplicationRunner {
             Course course2 = new Course("Cooking", "Aberdeen", 3);
             courseRepository.save(course2);
 
+            Course course3 = new Course("First Aid", "Edinburgh", 3);
+            courseRepository.save(course3);
+
+            Course course4 = new Course("Driving", "Thurles", 2);
+            courseRepository.save(course4);
+
             Booking booking1 = new Booking("01/01/2019", course1, customer1);
             bookingRepository.save(booking1);
 
