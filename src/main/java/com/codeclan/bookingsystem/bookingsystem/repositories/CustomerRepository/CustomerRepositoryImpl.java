@@ -43,7 +43,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
             Criteria cr = session.createCriteria(Customer.class);
             cr.createAlias("bookings", "bookingAlias");
             cr.add(Restrictions.eq("bookingAlias.course.id", courseId));
-            cr.add(Restrictions.eq("town", town));
+            cr.add(Restrictions.ilike("town", town));
             results = cr.list();
         }
         catch (HibernateException ex) {
@@ -61,7 +61,7 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
             Criteria cr = session.createCriteria(Customer.class);
             cr.createAlias("bookings", "bookingAlias");
             cr.add(Restrictions.gt("age", age));
-            cr.add(Restrictions.eq("town", town));
+            cr.add(Restrictions.ilike("town", town));
             cr.add(Restrictions.eq("bookingAlias.course.id", courseId));
             results = cr.list();
         }
