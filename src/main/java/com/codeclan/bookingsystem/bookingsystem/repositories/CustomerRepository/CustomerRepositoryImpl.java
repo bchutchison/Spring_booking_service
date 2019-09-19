@@ -1,5 +1,6 @@
 package com.codeclan.bookingsystem.bookingsystem.repositories.CustomerRepository;
 
+import com.codeclan.bookingsystem.bookingsystem.models.Course;
 import com.codeclan.bookingsystem.bookingsystem.models.Customer;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -32,6 +33,44 @@ public class CustomerRepositoryImpl implements CustomerRepositoryCustom {
         }
         return results;
     }
+
+    @Transactional
+    public List<Customer> findAllCustomersFromTownByByCourseId(String town, Long courseId) {
+        List<Customer> results = null;
+
+        try {
+            Session session = entityManager.unwrap(Session.class);
+            Criteria cr = session.createCriteria(Customer.class);
+            cr.createAlias("bookings", "bookingAlias");
+            cr.add(Restrictions.eq("bookingAlias.course.id", courseId));
+            cr.add(Restrictions.eq("town", town));
+            results = cr.list();
+        }
+        catch (HibernateException ex) {
+            ex.printStackTrace();
+        }
+        return results;
+    }
+
+    @Transactional
+    public List<Customer> findAllCustomersOverCertainAgeForGivenTownForGivenCourse(int age, String town, Long courseId) {
+        List<Customer> results = null;
+
+        try {
+            Session session = entityManager.unwrap(Session.class);
+            Criteria cr = session.createCriteria(Customer.class);
+            cr.createAlias("bookings", "bookingAlias");
+            cr.add(Restrictions.gt("age", age));
+            cr.add(Restrictions.eq("town", town));
+            cr.add(Restrictions.eq("bookingAlias.course.id", courseId));
+            results = cr.list();
+        }
+        catch (HibernateException ex) {
+            ex.printStackTrace();
+        }
+        return results;
+    }
+
 
 
 }

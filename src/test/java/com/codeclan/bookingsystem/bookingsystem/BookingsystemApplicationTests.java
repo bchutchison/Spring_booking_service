@@ -54,8 +54,20 @@ public class BookingsystemApplicationTests {
 
 	@Test
 	public void findBookingsByDate() {
-		List<Booking> found = bookingRepository.findBookingsByDate("01/01/2019");
+		List<Booking> found = bookingRepository.findBookingsByDate("01-01-2019");
 		assertEquals(2, found.size());
+	}
+
+	@Test
+	public void CanFindAllCustomersFromTownByByCourseId() {
+		List<Customer> found = customerRepository.findAllCustomersFromTownByByCourseId("Edinburgh", 1L);
+		assertEquals(1, found.size());
+	}
+
+	@Test
+	public void canFindAllCustomersOverCertainAgeForGivenTownForGivenCourse() {
+		List<Customer> found = customerRepository.findAllCustomersOverCertainAgeForGivenTownForGivenCourse(19, "Edinburgh", 1L);
+		assertEquals(1, found.size());
 	}
 
 }
